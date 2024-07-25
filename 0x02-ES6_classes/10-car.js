@@ -1,10 +1,8 @@
-// const symbol = Symbol('cloneCar');
-
 export default class Car {
   constructor(brand, motor, color) {
-    this._brand = Car._validateString(brand, 'Brand');
-    this._motor = Car._validateString(motor, 'Motor');
-    this._color = Car._validateString(color, 'Color');
+    this._brand = brand;
+    this._motor = motor;
+    this._color = color;
   }
 
   static _validateString(value, field) {
@@ -14,7 +12,12 @@ export default class Car {
     return value;
   }
 
+  static get [Symbol.species]() {
+    return this;
+  }
+
   cloneCar() {
-    return new this.constructor(this._brand, this._motor, this._color);
+    const Species = this.constructor[Symbol.species];
+    return new Species();
   }
 }
