@@ -42,9 +42,9 @@ const app = http.createServer((req, res) => {
         res.write('This is the list of our students\n');
         res.end(result);
       })
-      .catch((err) => {
+      .catch(() => {
         res.statusCode = 404;
-        res.end(`${err.message}`);
+        res.end('Cannot load the database');
       });
   }
 });
